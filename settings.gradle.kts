@@ -1,10 +1,6 @@
-/*dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
-        mavenCentral()
-        mavenCentral() // Warning: this repository is going to shut down soon
-    }
-}*/
-rootProject.name = "made1"
 include(":app")
+include(":libraries:data")
+include(":libraries:core")
+include(":libraries:domain")
+
+rootProject.buildFileName = "build.gradle.kts"
