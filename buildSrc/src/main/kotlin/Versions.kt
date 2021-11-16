@@ -10,7 +10,7 @@ object Versions {
     const val RX_JAVA = "3.0.13"
     const val RX_JAVA_ANDROID = "3.0.0"
     const val RX_BINDING = "4.0.0"
-    const val HILT = "2.38.1"
+    const val HILT = "2.40.1"
     const val HILT_JETPACK = "1.0.0-alpha03"
     const val LIFECYCLE_REACTIVE_STREAM = "2.3.1"
     const val BUILD_GRADLE = "7.0.3"

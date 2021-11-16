@@ -1,12 +1,13 @@
-package com.daniel.data.di
+package com.daniel.core.di
 
-import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 
-@Module
+@Module(includes = [
+    RepositoryModule::class,
+    UseCaseModule::class
+])
 @InstallIn(SingletonComponent::class)
-class RepostoryModule {
-
+abstract class CoreModule {
 }

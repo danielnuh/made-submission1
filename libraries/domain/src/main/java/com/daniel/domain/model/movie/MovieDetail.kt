@@ -9,5 +9,6 @@ data class MovieDetail(
     val title:String,
     val overview:String,
     val posterPath:String,
-    val releaseDate:String,
+    val voteAverage:Float,
+    val isFavorite:Boolean,
 ):Parcelable

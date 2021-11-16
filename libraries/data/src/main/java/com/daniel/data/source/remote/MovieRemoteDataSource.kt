@@ -1,7 +1,6 @@
 package com.daniel.data.source.remote
 
 import android.util.Log
-import com.daniel.data.network.response.movie.MovieDetailResponse
 import com.daniel.data.network.response.movie.MovieListResponse
 import com.daniel.data.network.service.ApiResponse
 import com.daniel.data.network.service.MovieService
@@ -15,19 +14,7 @@ import javax.inject.Singleton
 @Singleton
 class MovieRemoteDataSource @Inject constructor(private val movieService: MovieService) {
 
-    suspend fun getDetail(id:Int): Flow<ApiResponse<MovieDetailResponse>> {
-        return flow{
-            try {
-                val response = movieService.getDetailMovie(id)
-                emit(ApiResponse.Success(response))
-            } catch (e : Exception){
-                emit(ApiResponse.Error(e.toString()))
-                Log.e("RemoteDataSource", e.toString())
-            }
-        }.flowOn(Dispatchers.IO)
-    }
-
-    suspend fun getMovie():Flow<ApiResponse<MovieListResponse>>{
+    fun getMovie():Flow<ApiResponse<MovieListResponse>>{
         return flow {
             try {
                 val response = movieService.getMovie()

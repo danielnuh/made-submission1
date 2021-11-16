@@ -8,6 +8,6 @@ data class TvShowList(
     val id:Int,
     val name:String,
     val overview:String,
-    val firstAirDate:String,
+    val voteAverage:Float,
     val posterPath:String,
 ):Parcelable

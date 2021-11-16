@@ -6,15 +6,19 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface TvShowDao {
-    @Query("SELECT * FROM tvshow")
-    fun getAllTvShow(): Flow<List<TvShowEntity>>
 
-    @Query("SELECT * FROM tvshow where isFavorite = 1")
-    fun getFavoriteTvShow():Flow<List<TvShowEntity>>
+    @Query("SELECT * FROM tvShow")
+    fun getAll(): Flow<List<TvShowEntity>>
+
+    @Query("SELECT * FROM tvShow where isFavorite = 1")
+    fun getFavorite(): Flow<List<TvShowEntity>>
+
+    @Query("SELECT * FROM tvShow where id = :id")
+    fun getDetail(id:Int): Flow<TvShowEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertTvShow(tvshow: List<TvShowEntity>)
+    suspend fun insert(tvShow: List<TvShowEntity>)
 
-    @Update
-    fun updateFavoriteTvShow(tvshow: TvShowEntity)
+    @Query("UPDATE tvShow SET isFavorite = :isFavorite WHERE id = :id")
+    fun updateFavorite(id:Int, isFavorite:Boolean)
 }

@@ -7,16 +7,17 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class TvShowLocalDataSource @Inject constructor(private val tvShowDao: TvShowDao){
+class TvShowLocalDataSource @Inject constructor(private val tvShowDao: TvShowDao) {
 
-    fun getAllTvShow():Flow<List<TvShowEntity>> = tvShowDao.getAllTvShow()
+    fun getAll(): Flow<List<TvShowEntity>> = tvShowDao.getAll()
 
-    fun getFavoriteTvShow():Flow<List<TvShowEntity>> = tvShowDao.getFavoriteTvShow()
+    fun getFavorite(): Flow<List<TvShowEntity>> = tvShowDao.getFavorite()
 
-    suspend fun insertTvShow(tvShowList: List<TvShowEntity>)= tvShowDao.insertTvShow(tvShowList)
+    fun getDetail(id:Int): Flow<TvShowEntity> = tvShowDao.getDetail(id)
 
-    fun setFavoriteTvShow(tvShow:TvShowEntity, isFavorite:Boolean){
-        tvShow.isFavorite = isFavorite
-        tvShowDao.updateFavoriteTvShow(tvShow)
+    suspend fun insert(tvShowList: List<TvShowEntity>) = tvShowDao.insert(tvShowList)
+
+    fun setFavorite(id:Int, isFavorite: Boolean) {
+        tvShowDao.updateFavorite(id, isFavorite)
     }
 }

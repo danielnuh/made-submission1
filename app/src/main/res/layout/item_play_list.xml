@@ -45,101 +45,10 @@
             app:layout_constraintStart_toStartOf="@+id/layout_image"
             app:layout_constraintTop_toBottomOf="@+id/layout_image" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/title"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/title"
-            app:layout_constraintTop_toBottomOf="@+id/title">
 
-            <ImageView
-                android:id="@+id/star_a_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="3dp"
-                android:src="@drawable/ic_star_active"
-                android:visibility="gone" />
-
-            <ImageView
-                android:id="@+id/star_a_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="3dp"
-                android:src="@drawable/ic_star_active"
-                android:visibility="gone" />
-
-            <ImageView
-                android:id="@+id/star_a_3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="3dp"
-                android:src="@drawable/ic_star_active"
-                android:visibility="gone" />
-
-            <ImageView
-                android:id="@+id/star_a_4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="3dp"
-                android:src="@drawable/ic_star_active"
-                android:visibility="gone" />
-
-            <ImageView
-                android:id="@+id/star_a_5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="3dp"
-                android:src="@drawable/ic_star_active"
-                android:visibility="gone" />
-
-            <ImageView
-                android:id="@+id/star_h"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="3dp"
-                android:src="@drawable/ic_star_half"
-                android:visibility="gone" />
-
-            <ImageView
-                android:id="@+id/star_i_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="3dp"
-                android:src="@drawable/ic_star_disable" />
-
-            <ImageView
-                android:id="@+id/star_i_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="3dp"
-                android:src="@drawable/ic_star_disable" />
-
-            <ImageView
-                android:id="@+id/star_i_3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="3dp"
-                android:src="@drawable/ic_star_disable" />
-
-            <ImageView
-                android:id="@+id/star_i_4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="3dp"
-                android:src="@drawable/ic_star_disable" />
-
-            <ImageView
-                android:id="@+id/star_i_5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="3dp"
-                android:src="@drawable/ic_star_disable" />
-        </LinearLayout>
-
+        <include
+            android:id="@+id/rate"
+            layout="@layout/rate"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

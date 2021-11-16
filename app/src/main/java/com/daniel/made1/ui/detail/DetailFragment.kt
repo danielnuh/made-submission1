@@ -9,8 +9,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.daniel.data.BuildConfig
+import com.daniel.domain.model.favorite.Favorite
 import com.daniel.domain.model.movie.MovieList
+import com.daniel.domain.model.tvshow.TvShowList
 import com.daniel.domain.util.Resource
+import com.daniel.made1.R
 import com.daniel.made1.databinding.FragmentDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -36,64 +39,82 @@ class DetailFragment : Fragment() {
             requireActivity().onBackPressed()
         }
 
-        val movie = arguments?.getParcelable<MovieList>("TEST")
+        val movieParcelable = arguments?.getParcelable<MovieList>(MOVIE)
+        val tvShowParcelable = arguments?.getParcelable<TvShowList>(TV_SHOW)
 
-        if (movie != null) {
-            detailViewModel.getDetailMovie(movie.id).observe(viewLifecycleOwner) { movie ->
-                when (movie) {
-                    is Resource.Success -> {
-                        val movieDetailEntity = movie.data
-                        with(binding) {
-                            if (movieDetailEntity != null) {
-                                title.text = movieDetailEntity.title
-                                storyline.text = movieDetailEntity.overview
-    //                            stars.text = movieDetailEntity.stars.toString()
+        if (movieParcelable != null) {
+            var isFavorite = false
 
-                                Glide.with(requireActivity())
-                                    .load(BuildConfig.IMAGE_URL+movieDetailEntity.posterPath)
-                                    .into(image)
+            detailViewModel.getDetailMovie(movieParcelable.id)
+                .observe(viewLifecycleOwner) { movie ->
+                    with(binding) {
+                        if (movie != null) {
+                            title.text = movie.title
+                            storyline.text = movie.overview
+                            stars.text = (movie.voteAverage / 2).toString()
+
+                            Glide.with(requireActivity())
+                                .load(BuildConfig.IMAGE_URL + movie.posterPath)
+                                .into(image)
+                            isFavorite = movie.isFavorite
+
+                            if (movie.isFavorite) {
+                                binding.textBtnFavorite.text =
+                                    requireActivity().getString(R.string.remove_favorite)
+                            } else {
+                                binding.textBtnFavorite.text =
+                                    requireActivity().getString(R.string.add_favorite)
                             }
                         }
                     }
-
-                    is Resource.Loading -> {
-                        Log.d("RESPONES_API", "Loading")
-                    }
-
-                    is Resource.Error -> {
-                        Log.d("RESPONES_API", "Error")
-                    }
                 }
+
+            binding.btnFavorite.setOnClickListener {
+                detailViewModel.setFavoriteMovie(
+                    movieParcelable.id,
+                    !isFavorite
+                )
             }
         }
 
-        /*detailViewModel.getDetailTvShow().observe(viewLifecycleOwner) { tvShow ->
-            when (tvShow) {
-                is Resource.Success -> {
-                    val tvShowDetailEntity = tvShow.data
+        if (tvShowParcelable != null) {
+            var isFavorite = false
+
+            detailViewModel.getDetailTvShow(tvShowParcelable.id)
+                .observe(viewLifecycleOwner) { tvShow ->
                     with(binding) {
-                        if (tvShowDetailEntity != null) {
-                            title.text = tvShowDetailEntity.originalName
-                            storyline.text = tvShowDetailEntity.overview
-//                            stars.text = movieDetailEntity.stars.toString()
+                        if (tvShow != null) {
+                            title.text = tvShow.originalName
+                            storyline.text = tvShow.overview
+                            stars.text = (tvShow.voteAverage / 2).toString()
 
                             Glide.with(requireActivity())
-                                .load(tvShowDetailEntity.posterPath)
+                                .load(BuildConfig.IMAGE_URL + tvShow.posterPath)
                                 .into(image)
+                            isFavorite = tvShow.isFavorite
+                            if (tvShow.isFavorite) {
+                                binding.textBtnFavorite.text =
+                                    requireActivity().getString(R.string.remove_favorite)
+                            } else {
+                                binding.textBtnFavorite.text =
+                                    requireActivity().getString(R.string.add_favorite)
+                            }
                         }
                     }
                 }
 
-                is Resource.Loading -> {
-                    Log.d("RESPONES_API", "Loading")
-                }
-
-                is Resource.Error -> {
-                    Log.d("RESPONES_API", "Error")
-                }
+            binding.btnFavorite.setOnClickListener {
+                detailViewModel.setFavoriteTvShow(
+                    tvShowParcelable.id,
+                    !isFavorite
+                )
             }
-        }*/
+
+        }
     }
 
-
+    companion object {
+        val MOVIE = "MOVIE_LIST"
+        val TV_SHOW = "TV_SHOW_LIST"
+    }
 }

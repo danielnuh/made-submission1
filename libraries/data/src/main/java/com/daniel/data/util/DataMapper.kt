@@ -1,55 +1,120 @@
-package com.daniel.data.util
+    package com.daniel.data.util
 
-import com.daniel.data.network.response.movie.MovieDetailResponse
 import com.daniel.data.network.response.movie.MovieListResponse
 import com.daniel.data.network.response.tvshow.TvShowListResponse
+import com.daniel.data.source.local.entitiy.MovieEntity
+import com.daniel.data.source.local.entitiy.TvShowEntity
 import com.daniel.domain.model.movie.MovieDetail
 import com.daniel.domain.model.movie.MovieList
+import com.daniel.domain.model.tvshow.TvShowDetail
 import com.daniel.domain.model.tvshow.TvShowList
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
 
 object DataMapper {
 
-    fun mapResponseToDomainMovie(input: MovieListResponse) : Flow<List<MovieList>> {
+
+    fun mapResponseToEntityMovie(input: MovieListResponse): List<MovieEntity> {
+        val movieList = ArrayList<MovieEntity>()
+
+        input.results.map {
+            movieList.add(
+                MovieEntity(
+                    it.id,
+                    it.title,
+                    it.overview,
+                    it.posterPath,
+                    it.voteAverage,
+                    false
+                )
+            )
+        }
+
+        return movieList
+    }
+
+
+    fun mapResponseToEntityTvShow(input: TvShowListResponse): List<TvShowEntity> {
+        val tvShowList = ArrayList<TvShowEntity>()
+
+        input.results.map {
+            tvShowList.add(
+                TvShowEntity(
+                    it.id,
+                    it.name,
+                    it.overview,
+                    it.posterPath,
+                    it.voteAverage,
+                    false
+                )
+            )
+        }
+
+        return tvShowList
+    }
+
+    fun mapResponseToDomainMovie(input: List<MovieEntity>): List<MovieList> {
         val dataArray = ArrayList<MovieList>()
 
-        input.results.map {
-            dataArray.add(MovieList(
-                it.id,
-                it.title,
-                it.overview,
-                it.releaseDate,
-                it.posterPath
-            ))
+        input.map {
+            dataArray.add(
+                MovieList(
+                    it.id,
+                    it.title,
+                    it.overview,
+                    it.rate,
+                    it.image
+                )
+            )
         }
 
-        return flowOf(dataArray)
+        return dataArray
     }
 
-    fun mapResponseToDomainTvShow(input: TvShowListResponse) : Flow<List<TvShowList>> {
+    fun mapResponseToDomainTvShow(input: List<TvShowEntity>): List<TvShowList> {
         val dataArray = ArrayList<TvShowList>()
 
-        input.results.map {
-            dataArray.add(TvShowList(
-                it.id,
-                it.name,
-                it.overview,
-                it.firstAirDate,
-                it.posterPath
-            ))
+        input.map {
+            dataArray.add(
+                TvShowList(
+                    it.id,
+                    it.title,
+                    it.overview,
+                    it.rate,
+                    it.image
+                )
+            )
         }
 
-        return flowOf(dataArray)
+        return dataArray
     }
 
-    fun mapResponseToDomainDetailMovie(input: MovieDetailResponse) : Flow<MovieDetail> {
-        return flowOf(MovieDetail(
+    fun mapEntityToDomainMovie(input: MovieEntity): MovieDetail {
+        return MovieDetail(
             input.id,
             input.title,
             input.overview,
-            input.poster_path,
-            input.release_date,
-        ))
+            input.image,
+            input.rate,
+            input.isFavorite,
+        )
     }
+
+    fun mapEntityToDomainTvShow(input: TvShowEntity): TvShowDetail {
+        return TvShowDetail(
+            input.id,
+            input.overview,
+            input.image,
+            input.title,
+            input.rate,
+            input.isFavorite,
+        )
+    }
+
+    fun mapIsFavoriteMovie(input:MovieEntity):Boolean{
+        return input.isFavorite
+    }
+
+    fun mapIsFavoriteTvShow(input:TvShowEntity):Boolean{
+        return input.isFavorite
+    }
+
 }

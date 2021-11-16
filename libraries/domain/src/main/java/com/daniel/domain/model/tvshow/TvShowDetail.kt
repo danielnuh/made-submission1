@@ -6,8 +6,9 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class TvShowDetail(
     val id:Int,
-    val firstAirDate:String,
     val overview:String,
     val posterPath:String,
     val originalName:String,
+    val voteAverage:Float,
+    val isFavorite:Boolean,
 ):Parcelable

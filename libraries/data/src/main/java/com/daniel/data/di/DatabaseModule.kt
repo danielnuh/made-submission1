@@ -26,5 +26,5 @@ class DatabaseModule {
     fun provideMovieDao(database: ListDatabase): MovieDao = database.movieDao()
 
     @Provides
-    fun provideTvShowDao(database: ListDatabase):TvShowDao = database.tvShowDao()
+    fun provideTvShowDao(database: ListDatabase): TvShowDao = database.tvShowDao()
 }

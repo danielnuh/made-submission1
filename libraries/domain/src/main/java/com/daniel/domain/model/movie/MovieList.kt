@@ -8,6 +8,6 @@ data class MovieList(
     val id:Int,
     val title:String,
     val overview:String,
-    val date:String,
+    val voteAverage:Float,
     val image:String,
 ):Parcelable

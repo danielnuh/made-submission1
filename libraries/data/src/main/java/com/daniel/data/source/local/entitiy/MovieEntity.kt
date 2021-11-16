@@ -18,12 +18,12 @@ data class MovieEntity(
     @ColumnInfo(name = "overview")
     var overview:String,
 
-    @ColumnInfo(name = "release_date")
-    var date:String,
-
-    @ColumnInfo(name = "poster_path")
+    @ColumnInfo(name = "image")
     var image:String,
 
+    @ColumnInfo(name = "rate")
+    var rate:Float,
+
     @ColumnInfo(name = "isFavorite")
-    var isFavorite:Boolean = false,
+    var isFavorite:Boolean,
 )

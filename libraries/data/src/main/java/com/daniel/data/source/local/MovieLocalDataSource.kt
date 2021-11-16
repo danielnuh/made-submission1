@@ -7,16 +7,17 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class MovieLocalDataSource @Inject constructor(private val movieDao: MovieDao){
+class MovieLocalDataSource @Inject constructor(private val movieDao: MovieDao) {
 
-    fun getAllMovie():Flow<List<MovieEntity>> = movieDao.getAllMovie()
+    fun getAll(): Flow<List<MovieEntity>> = movieDao.getAll()
 
-    fun getFavoriteMovie():Flow<List<MovieEntity>> = movieDao.getFavoriteMovie()
+    fun getFavorite(): Flow<List<MovieEntity>> = movieDao.getFavorite()
 
-    suspend fun insertMovie(movieEntityList: List<MovieEntity>)= movieDao.insertMovie(movieEntityList)
+    fun getDetail(id:Int): Flow<MovieEntity> = movieDao.getDetail(id)
 
-    fun setFavoriteMovie(movie:MovieEntity, isFavorite:Boolean){
-        movie.isFavorite = isFavorite
-        movieDao.updateFavoriteMovie(movie)
+    suspend fun insert(movieList: List<MovieEntity>) = movieDao.insert(movieList)
+
+    fun setFavorite(id:Int, isFavorite: Boolean) {
+        movieDao.updateFavorite(id, isFavorite)
     }
 }

@@ -13,8 +13,6 @@ object BuildModules {
     }
 
     object Features {
-        const val MOVIE = ":features:movie"
-        const val TV_SHOW = ":features:tvshow"
         const val FAVORITE = ":features:favorite"
     }
 }

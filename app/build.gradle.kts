@@ -46,6 +46,11 @@ android {
         viewBinding = true
         dataBinding = true
     }
+    dynamicFeatures.addAll(
+        mutableSetOf(
+            BuildModules.Features.FAVORITE
+        )
+    )
 
 //    setDynamicFeatures(mutableSetOf(":features:favorite"))
 }
@@ -63,7 +68,6 @@ dependencies {
     implementation(Dependencies.MULTI_DEX)
 
     implementation(Dependencies.HILT)
-    implementation("androidx.legacy:legacy-support-v4:1.0.0")
     kapt(AnnotationProcessorsDependencies.HILT)
 
     implementation(Dependencies.LIFECYCLE_LIVEDATA_KTX)
@@ -93,4 +97,7 @@ dependencies {
     val paging_version = "3.0.1"
 
     implementation("androidx.paging:paging-runtime:$paging_version")
+
+    implementation("androidx.navigation:navigation-fragment-ktx:2.3.5")
+    implementation("androidx.navigation:navigation-ui-ktx:2.3.5")
 }

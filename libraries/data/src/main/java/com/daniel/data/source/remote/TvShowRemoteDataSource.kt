@@ -16,19 +16,7 @@ import javax.inject.Singleton
 @Singleton
 class TvShowRemoteDataSource @Inject constructor(private val tvShowService: TvShowService){
 
-    suspend fun getDetail(id:Int): Flow<ApiResponse<TvShowDetailResponse>> {
-        return flow{
-            try {
-                val response = tvShowService.getDetailTvShow(id)
-                emit(ApiResponse.Success(response))
-            } catch (e : Exception){
-                emit(ApiResponse.Error(e.toString()))
-                Log.e("RemoteDataSource", e.toString())
-            }
-        }.flowOn(Dispatchers.IO)
-    }
-
-    suspend fun getTvShow():Flow<ApiResponse<TvShowListResponse>>{
+    fun getTvShow():Flow<ApiResponse<TvShowListResponse>>{
         return flow {
             try {
                 val response = tvShowService.getTvShow()

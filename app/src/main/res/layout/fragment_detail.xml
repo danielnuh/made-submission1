@@ -127,7 +127,7 @@
                 android:layout_marginEnd="30dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/director"></com.google.android.material.chip.ChipGroup>
+                app:layout_constraintTop_toBottomOf="@+id/director"/>
 
             <TextView
                 android:id="@+id/textView8"
@@ -164,7 +164,7 @@
     </ScrollView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/btn_watch"
+        android:id="@+id/btn_favorite"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
@@ -178,6 +178,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <TextView
+            android:id="@+id/text_btn_favorite"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_medium"
