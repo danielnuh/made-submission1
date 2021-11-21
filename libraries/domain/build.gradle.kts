@@ -17,7 +17,7 @@ dependencies {
     implementation(Dependencies.CORE_KTX)
 
     implementation(Dependencies.HILT)
-    annotationProcessor (AnnotationProcessorsDependencies.HILT)
+    kapt(AnnotationProcessorsDependencies.HILT)
 
     implementation(Dependencies.COUROUTINES_CORE)
     implementation(Dependencies.COUROUTINES_ANDROID)
