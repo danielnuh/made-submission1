@@ -7,26 +7,40 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.daniel.core.dependencies.FavoriteModuleDependencies
+import com.daniel.core.ui.BaseViewModelFactory
 import com.daniel.favorite.databinding.FragmentFavoriteBinding
-import com.daniel.made1.ui.list.MovieListAdapter
-import com.daniel.made1.ui.list.TvShowListAdapter
-import dagger.hilt.android.AndroidEntryPoint
+import com.daniel.favorite.di.DaggerFavoriteComponent
+import dagger.hilt.android.EntryPointAccessors
+import javax.inject.Inject
 
-@AndroidEntryPoint
 class FavoriteFragment : Fragment() {
-    private lateinit var _binding: FragmentFavoriteBinding
-    private val binding get() = _binding
+    @Inject
+    lateinit var factory: BaseViewModelFactory
 
-    private val favoriteViewModel: FavoriteViewModel by viewModels()
+    private var _binding: FragmentFavoriteBinding? = null
+    private val binding get() = _binding!!
 
-    private val movieAdapter = MovieListAdapter()
-    private val tvShowAdapter = TvShowListAdapter()
+    private val favoriteViewModel: FavoriteViewModel by viewModels {
+        factory
+    }
+
+    private val movieAdapter = MovieFavoriteAdapter()
+    private val tvShowAdapter = TvShowFavoriteAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        _binding  = FragmentFavoriteBinding.inflate(inflater, container, false)
+    ): View {
+        DaggerFavoriteComponent.factory()
+            .create(
+                EntryPointAccessors.fromApplication(
+                    requireContext(),
+                    FavoriteModuleDependencies::class.java
+                ), requireContext()
+            ).inject(this)
+
+        _binding = FragmentFavoriteBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -36,20 +50,25 @@ class FavoriteFragment : Fragment() {
         setRecycler()
 
         favoriteViewModel.movie.observe(viewLifecycleOwner) { movie ->
-            if (movie.isNotEmpty()){
-                movieAdapter.setData(movie)
-                movieAdapter.notifyDataSetChanged()
-            }
+            movieAdapter.setData(movie)
+            movieAdapter.notifyDataSetChanged()
         }
 
         favoriteViewModel.tvShow.observe(viewLifecycleOwner) { tvShow ->
-            if (tvShow.isNotEmpty()){
-                tvShowAdapter.setData(tvShow)
-                tvShowAdapter.notifyDataSetChanged()
-            }
+            tvShowAdapter.setData(tvShow)
+            tvShowAdapter.notifyDataSetChanged()
         }
     }
 
+    override fun onDestroyView() {
+        with(binding){
+            rvMovie.adapter = null
+            rvTvShow.adapter = null
+        }
+        super.onDestroyView()
+        _binding = null
+
+    }
 
     private fun setRecycler() {
 

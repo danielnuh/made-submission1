@@ -1,4 +1,4 @@
-package com.daniel.made1.ui.list
+package com.daniel.favorite
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -13,7 +13,7 @@ import com.daniel.made1.databinding.ItemPlayListBinding
 import com.daniel.made1.ui.RateHelper
 import com.daniel.made1.ui.detail.DetailFragment
 
-class TvShowListAdapter:RecyclerView.Adapter<TvShowListAdapter.TvShowViewHolder>() {
+class TvShowFavoriteAdapter:RecyclerView.Adapter<TvShowFavoriteAdapter.TvShowViewHolder>() {
 
     private var list = ArrayList<TvShowList>()
 
@@ -26,7 +26,7 @@ class TvShowListAdapter:RecyclerView.Adapter<TvShowListAdapter.TvShowViewHolder>
         holder.bind(list[position])
         holder.itemView.setOnClickListener {
             val bundle = bundleOf(DetailFragment.TV_SHOW to list[position])
-            holder.itemView.findNavController().navigate(R.id.action_listFragment_to_detailFragment,bundle)
+            holder.itemView.findNavController().navigate(R.id.action_favoriteFragment_to_detailFragment,bundle)
         }
     }
 

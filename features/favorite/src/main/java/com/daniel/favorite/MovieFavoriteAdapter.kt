@@ -1,4 +1,4 @@
-package com.daniel.made1.ui.list
+package com.daniel.favorite
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -13,7 +13,7 @@ import com.daniel.made1.databinding.ItemPlayListBinding
 import com.daniel.made1.ui.RateHelper
 import com.daniel.made1.ui.detail.DetailFragment
 
-class MovieListAdapter:RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>() {
+class MovieFavoriteAdapter:RecyclerView.Adapter<MovieFavoriteAdapter.MovieViewHolder>() {
 
     private var list = ArrayList<MovieList>()
 
@@ -26,7 +26,7 @@ class MovieListAdapter:RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>() 
         holder.bind(list[position])
         holder.itemView.setOnClickListener {
             val bundle = bundleOf(DetailFragment.MOVIE to list[position])
-            holder.itemView.findNavController().navigate(R.id.action_listFragment_to_detailFragment ,bundle)
+            holder.itemView.findNavController().navigate(R.id.action_favoriteFragment_to_detailFragment ,bundle)
         }
     }
 
@@ -46,7 +46,7 @@ class MovieListAdapter:RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>() 
                     .load(BuildConfig.IMAGE_URL+movieList.image)
                     .into(image)
 
-                RateHelper(rate).setRate(movieList.voteAverage/2)
+                RateHelper(binding.rate).setRate(movieList.voteAverage/2)
             }
         }
     }

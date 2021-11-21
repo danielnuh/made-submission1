@@ -14,8 +14,8 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ListFragment : Fragment() {
-    private lateinit var _binding: FragmentListBinding
-    private val binding get() = _binding
+    private var _binding: FragmentListBinding? = null
+    private val binding get() = _binding!!
 
     private val listViewModel:ListViewModel by viewModels()
 
@@ -25,7 +25,7 @@ class ListFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentListBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -92,4 +92,13 @@ class ListFragment : Fragment() {
         }
     }
 
+    override fun onDestroyView() {
+        with(binding){
+            rvMovie.adapter = null
+            rvTvShow.adapter = null
+        }
+        super.onDestroyView()
+        _binding = null
+
+    }
 }

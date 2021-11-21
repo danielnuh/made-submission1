@@ -25,7 +25,15 @@ android {
 
     buildTypes {
         getByName("release") {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+
+        getByName("debug") {
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -51,8 +59,6 @@ android {
             BuildModules.Features.FAVORITE
         )
     )
-
-//    setDynamicFeatures(mutableSetOf(":features:favorite"))
 }
 
 dependencies {
@@ -79,25 +85,9 @@ dependencies {
     kapt(AnnotationProcessorsDependencies.GLIDE)
     implementation("androidx.core:core-splashscreen:1.0.0-alpha01")
 
-//    testImplementation(TestDependencies.JUNIT)
-//    androidTestImplementation(TestAndroidDependencies.EXT_JUNIT)
-//    androidTestImplementation(TestAndroidDependencies.ESPRESSO)
+    implementation(Dependencies.NAVIGATION_FRAGMENT)
+    implementation(Dependencies.NAVIGATION_UI)
+    implementation(Dependencies.NAVIGATION_DYNAMIC_FEATURES)
 
-
-    val nav_version = "2.3.5"
-
-    // Kotlin
-    implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
-    implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
-
-    // Feature module Support
-    implementation("androidx.navigation:navigation-dynamic-features-fragment:$nav_version")
-
-
-    val paging_version = "3.0.1"
-
-    implementation("androidx.paging:paging-runtime:$paging_version")
-
-    implementation("androidx.navigation:navigation-fragment-ktx:2.3.5")
-    implementation("androidx.navigation:navigation-ui-ktx:2.3.5")
+    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.4")
 }

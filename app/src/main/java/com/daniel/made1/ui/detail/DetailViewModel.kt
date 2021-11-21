@@ -17,8 +17,6 @@ class DetailViewModel @Inject constructor(
 
     fun getFavoriteStatusMovie(id:Int) = detailUseCase.isFavoriteMovie(id).asLiveData()
 
-    fun getFavoriteStatusTvShow(id:Int) = detailUseCase.isFavoriteTvShow(id).asLiveData()
-
     fun setFavoriteMovie(id:Int, isFavorite:Boolean){
         detailUseCase.setFavoriteMovie(id, isFavorite)
     }

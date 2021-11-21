@@ -14,8 +14,11 @@ android {
 
     buildTypes.forEach {
         it.buildConfigField("String", "BASE_URL", project.property("baseUrl").toString())
+        it.buildConfigField("String", "HOST_NAME", project.property("hostname").toString())
         it.buildConfigField("String", "IMAGE_URL", project.property("imageUrl").toString())
         it.buildConfigField("String", "KEY_URL", project.property("keyUrl").toString())
+
+        it.buildConfigField("String", "CERTIFICATE_KEY1", project.property("certificateKey1").toString())
     }
 }
 
@@ -37,4 +40,6 @@ dependencies {
 
     implementation(Dependencies.COUROUTINES_CORE)
     implementation(Dependencies.COUROUTINES_ANDROID)
+
+    implementation("net.zetetic:android-database-sqlcipher:4.4.0")
 }

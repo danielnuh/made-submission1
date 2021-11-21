@@ -1,35 +1,37 @@
 package com.daniel.made1.ui.detail
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.daniel.data.BuildConfig
-import com.daniel.domain.model.favorite.Favorite
 import com.daniel.domain.model.movie.MovieList
 import com.daniel.domain.model.tvshow.TvShowList
-import com.daniel.domain.util.Resource
 import com.daniel.made1.R
 import com.daniel.made1.databinding.FragmentDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class DetailFragment : Fragment() {
-    private lateinit var _binding: FragmentDetailBinding
-    private val binding get() = _binding
+    private var _binding: FragmentDetailBinding? = null
+    private val binding get() = _binding!!
 
     private val detailViewModel: DetailViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentDetailBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -114,7 +116,7 @@ class DetailFragment : Fragment() {
     }
 
     companion object {
-        val MOVIE = "MOVIE_LIST"
-        val TV_SHOW = "TV_SHOW_LIST"
+        const val MOVIE = "MOVIE_LIST"
+        const val TV_SHOW = "TV_SHOW_LIST"
     }
 }
