@@ -2,10 +2,10 @@ package com.daniel.made1.ui.list
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.daniel.domain.util.Resource
@@ -33,16 +33,13 @@ class ListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setRecycler()
 
         listViewModel.movie.observe(viewLifecycleOwner) { movie ->
             when (movie) {
                 is Resource.Success -> {
                     movie.data?.let {
                         Log.d("RESPONES_API", "SUCCESS")
-
-                        movieAdapter.setData(it)
-                        movieAdapter.notifyDataSetChanged()
+                        movieAdapter.submitList(it)
                     }
                 }
 
@@ -61,9 +58,7 @@ class ListFragment : Fragment() {
                 is Resource.Success -> {
                     movie.data?.let {
                         Log.d("RESPONES_API", "SUCCESS")
-
-                        tvShowAdapter.setData(it)
-                        tvShowAdapter.notifyDataSetChanged()
+                        tvShowAdapter.submitList(it)
                     }
                 }
 
@@ -76,6 +71,7 @@ class ListFragment : Fragment() {
                 }
             }
         }
+
     }
     private fun setRecycler() {
 
@@ -92,6 +88,11 @@ class ListFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        setRecycler()
+    }
+
     override fun onDestroyView() {
         with(binding){
             rvMovie.adapter = null
@@ -99,6 +100,5 @@ class ListFragment : Fragment() {
         }
         super.onDestroyView()
         _binding = null
-
     }
 }

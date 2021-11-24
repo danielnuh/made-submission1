@@ -47,17 +47,18 @@ class FavoriteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setRecycler()
-
         favoriteViewModel.movie.observe(viewLifecycleOwner) { movie ->
-            movieAdapter.setData(movie)
-            movieAdapter.notifyDataSetChanged()
+            movieAdapter.submitList(movie)
         }
 
         favoriteViewModel.tvShow.observe(viewLifecycleOwner) { tvShow ->
-            tvShowAdapter.setData(tvShow)
-            tvShowAdapter.notifyDataSetChanged()
+            tvShowAdapter.submitList(tvShow)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setRecycler()
     }
 
     override fun onDestroyView() {

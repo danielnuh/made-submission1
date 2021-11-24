@@ -3,9 +3,7 @@
     <string name="movie">Movie</string>
     <string name="tv_show">Tv Show</string>
     <string name="favorite">Favorite</string>
-    <string name="title_favorite">Favorite</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="add_favorite">Add favorite</string>
     <string name="remove_favorite">Remove favorite</string>
     <string name="details_movie">Details Movie</string>

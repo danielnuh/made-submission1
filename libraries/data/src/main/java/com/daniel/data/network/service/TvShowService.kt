@@ -11,12 +11,6 @@ interface TvShowService {
     @GET("tv/popular")
     suspend fun getTvShow(
         @Query("api_key")token:String = BuildConfig.KEY_URL,
-        @Query("page")page:Int = 1
+        @Query("page")page:Int = 2
     ):TvShowListResponse
-
-    @GET("tv/{id}")
-    suspend fun getDetailTvShow(
-        @Path("id") id: Int,
-        @Query("api_key")token:String = BuildConfig.KEY_URL,
-    ):TvShowDetailResponse
 }

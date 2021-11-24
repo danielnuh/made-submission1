@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.daniel.data.BuildConfig
@@ -13,32 +15,9 @@ import com.daniel.made1.databinding.ItemPlayListBinding
 import com.daniel.made1.ui.RateHelper
 import com.daniel.made1.ui.detail.DetailFragment
 
-class TvShowFavoriteAdapter:RecyclerView.Adapter<TvShowFavoriteAdapter.TvShowViewHolder>() {
+class TvShowFavoriteAdapter: ListAdapter<TvShowList,TvShowFavoriteAdapter.ViewHolder>(DataDifferntiator) {
 
-    private var list = ArrayList<TvShowList>()
-
-    fun setData(listTvShow:List<TvShowList>){
-        this.list.clear()
-        this.list.addAll(listTvShow)
-    }
-
-    override fun onBindViewHolder(holder: TvShowViewHolder, position: Int) {
-        holder.bind(list[position])
-        holder.itemView.setOnClickListener {
-            val bundle = bundleOf(DetailFragment.TV_SHOW to list[position])
-            holder.itemView.findNavController().navigate(R.id.action_favoriteFragment_to_detailFragment,bundle)
-        }
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TvShowViewHolder {
-        return TvShowViewHolder(ItemPlayListBinding.inflate(
-            LayoutInflater.from(parent.context), parent, false
-        ))
-    }
-
-    override fun getItemCount(): Int = list.size
-
-    class TvShowViewHolder(private val binding: ItemPlayListBinding):RecyclerView.ViewHolder(binding.root){
+    class ViewHolder(private val binding: ItemPlayListBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(tvShowList: TvShowList){
             with(binding){
                 title.text = tvShowList.name
@@ -49,6 +28,34 @@ class TvShowFavoriteAdapter:RecyclerView.Adapter<TvShowFavoriteAdapter.TvShowVie
                     .load(BuildConfig.IMAGE_URL+tvShowList.posterPath)
                     .into(image)
             }
+        }
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val list = getItem(position)
+        if (list != null) {
+            holder.bind(list)
+            holder.itemView.setOnClickListener {
+                val bundle = bundleOf(DetailFragment.TV_SHOW to list)
+                holder.itemView.findNavController().navigate(R.id.action_favoriteFragment_to_detailFragment,bundle)
+            }
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return ViewHolder(ItemPlayListBinding.inflate(
+            LayoutInflater.from(parent.context), parent, false
+        ))
+    }
+
+    object DataDifferntiator : DiffUtil.ItemCallback<TvShowList>() {
+
+        override fun areItemsTheSame(oldItem: TvShowList, newItem: TvShowList): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: TvShowList, newItem: TvShowList): Boolean {
+            return oldItem == newItem
         }
     }
 }

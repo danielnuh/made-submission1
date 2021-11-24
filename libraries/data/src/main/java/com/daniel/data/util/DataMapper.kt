@@ -1,5 +1,6 @@
     package com.daniel.data.util
 
+import android.util.Log
 import com.daniel.data.network.response.movie.MovieListResponse
 import com.daniel.data.network.response.tvshow.TvShowListResponse
 import com.daniel.data.source.local.entitiy.MovieEntity
@@ -36,6 +37,7 @@ object DataMapper {
         val tvShowList = ArrayList<TvShowEntity>()
 
         input.results.map {
+            Log.d("hellow", it.posterPath)
             tvShowList.add(
                 TvShowEntity(
                     it.id,

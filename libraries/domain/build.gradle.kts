@@ -21,4 +21,7 @@ dependencies {
 
     implementation(Dependencies.COUROUTINES_CORE)
     implementation(Dependencies.COUROUTINES_ANDROID)
+
+    implementation("androidx.paging:paging-runtime:3.0.0-alpha04")
+
 }
