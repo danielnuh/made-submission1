@@ -36,6 +36,7 @@ object Dependencies {
 
     // Jetpack
     const val ROOM = "androidx.room:room-ktx:${Versions.ROOM}"
+    const val ROOM_RUNTIME = "androidx.room:room-runtime:${Versions.ROOM}"
     const val ROOM_RXJAVA_3 = "androidx.room:room-rxjava3:${Versions.ROOM}"
 
     const val NAVIGATION_FRAGMENT =

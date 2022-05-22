@@ -32,6 +32,7 @@ dependencies {
     api(Dependencies.OK_HTTP_LOGGING)
     api(Dependencies.OK_HTTP)
 
+    api(Dependencies.ROOM_RUNTIME)
     api(Dependencies.ROOM)
     kapt(AnnotationProcessorsDependencies.ROOM)
 
